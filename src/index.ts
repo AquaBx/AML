@@ -1,3 +1,3 @@
-export * from "./complex"
-export * from "./equations"
-export * from "./matrix"
+export * from './matrix';
+export * from './equations';
+export * from './complex';
