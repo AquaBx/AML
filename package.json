@@ -1,8 +1,10 @@
 {
   "name": "aml",
   "version": "1.0.0-alpha.1",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "tsup",
@@ -14,5 +16,8 @@
   "dependencies": {
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "terser": "^5.36.0"
   }
 }
