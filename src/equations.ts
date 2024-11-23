@@ -1,17 +1,5 @@
 import { Complex } from "./complex"
 
-class FFT {
-    static fft() {
-
-    }
-
-    static fftReversed(){
-
-    }
-
-    static private 
-}
-
 export class Equation {
     constructor ( protected coefficients:number[] ){}
 
