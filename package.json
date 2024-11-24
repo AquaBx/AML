@@ -1,13 +1,15 @@
 {
   "name": "aml",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsup"
+    "postinstall": "tsup",
+    "build": "tsup",
+    "test": "vitest",
+    "mutate:test": "stryker run"
   },
   "author": "",
   "license": "MIT",
@@ -17,6 +19,8 @@
     "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "terser": "^5.39.0"
+    "@stryker-mutator/vitest-runner": "^8.6.0",
+    "terser": "^5.36.0",
+    "vitest": "^2.1.5"
   }
 }
