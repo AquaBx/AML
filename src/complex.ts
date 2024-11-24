@@ -35,14 +35,19 @@ export class Complex {
     }
 
     toString() {
-        if (this.isReal()){
-            return `${this.real}`
+
+        let a = parseFloat(this.real.toNumber().toFixed(4))
+        let b = parseFloat(this.imaginary.toNumber().toFixed(4))
+        let sb = b < 0 ? '-' : '+'
+
+        if (b==0){
+            return `${a}`
         }
-        else if (this.isImaginary()){
-            return `${this.imaginary}i`
+        else if (a==0){
+            return `${b}i`
         }
 
-        return `${this.real}${this.imaginary.toNumber() < 0 ? '' : '+'}${this.imaginary}i`
+        return `${a}${sb}${Math.abs(b)}i`
     }
 
 }
