@@ -3,13 +3,17 @@ import { Float } from "./float";
 
 export class CpxTab {
 
-    private tab : Complex[] = []
+    private tab : Complex[]
 
     constructor (n:number){
         this.tab = (new Array<Complex>(n)).fill(new Complex(new Float(0)))
     }
 
     load (x:Float[]){
+        if (x.length > this.tab.length){
+            throw new Error("le tableau à charger doit être plus petit ou égal à la taille du tableau Complex")
+        }
+
         for (let i = 0 ; i < x.length ; i++){
             this.tab[i] = new Complex(x[i])
         }
@@ -48,7 +52,7 @@ export class CpxTab {
     }
 }
 
-function combine(c1 : CpxTab , c2 : CpxTab ) : CpxTab {
+export function fftCombine(c1 : CpxTab , c2 : CpxTab ) : CpxTab {
 
     if (c1.taille() != c2.taille()){
         throw new Error(`combine: c1 et c2 ne sont pas de même taille, taille c1=${c1.taille()} taille c2=${c2.taille()}`)
@@ -61,8 +65,8 @@ function combine(c1 : CpxTab , c2 : CpxTab ) : CpxTab {
 
     for (let k = 0; k < m; k++){
 
-        let Wnr = Math.round( Math.cos( 2 * Math.PI / n * k ) * 1**10 ) / 1**10;
-        let Wni = Math.round( Math.sin( 2 * Math.PI / n * k ) * 1**10 ) / 1**10;
+        let Wnr = Math.cos( 2 * Math.PI / n * k )
+        let Wni = Math.sin( 2 * Math.PI / n * k )
 
         let Wn = new Complex(new Float(Wnr),new Float(Wni))
 
@@ -74,7 +78,7 @@ function combine(c1 : CpxTab , c2 : CpxTab ) : CpxTab {
     return retour;
 }
 
-function  fftRecursive(x:CpxTab) : CpxTab {
+export function  fft(x:CpxTab) : CpxTab {
     let n = x.taille();
 
     if (n==1){return x;}
@@ -94,13 +98,13 @@ function  fftRecursive(x:CpxTab) : CpxTab {
         Aimpair.set((i-1)/2, x.get(i))
     }
 
-    let yPair = fftRecursive(Apair);
-    let yImpair = fftRecursive(Aimpair);
+    let yPair = fft(Apair);
+    let yImpair = fft(Aimpair);
 
-    return combine(yPair,yImpair);
+    return fftCombine(yPair,yImpair);
 }
         
-function  fftInverseRecursive(y:CpxTab) : CpxTab {
+export function  ifft(y:CpxTab) : CpxTab {
 
     let t = y.taille()
     let taille = new CpxTab(t);
@@ -110,17 +114,9 @@ function  fftInverseRecursive(y:CpxTab) : CpxTab {
     }
 
     let step1 = y.conjugue()
-    let step2 = fftRecursive(step1)
+    let step2 = fft(step1)
     let step3 = step2.conjugue()
 
     return CpxTab.multiply(taille,step3);
 }	
-
-export function  fft(x : CpxTab) : CpxTab {
-    return fftRecursive(x);
-}
-
-export function fftInverse(x : CpxTab) : CpxTab {
-    return fftInverseRecursive(x);
-}
 

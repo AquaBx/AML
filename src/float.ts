@@ -10,8 +10,7 @@ export class Float {
             throw new Error("Division by 0")
         }
 
-        let s = n * d < 0 ? -1 : 1
-        this.simplify(s * Math.abs(n),Math.abs(d))
+        this.simplify(n * Math.sign(d),d * Math.sign(d))
     }
 
     private simplify(n:number,d:number) {
@@ -43,6 +42,10 @@ export class Float {
         return this.add( f1, f2.opposite() )
     }
 
+    static divide(f1:Float, f2:Float){
+        return this.multiply(f1,f2.inverse())
+    }
+
     inverse(){
         return new Float(this.denominateur,this.numerateur)
     }
@@ -51,7 +54,4 @@ export class Float {
         return new Float(-this.numerateur,this.denominateur)
     }
 
-    static divide(f1:Float, f2:Float){
-        return this.multiply(f1,f2.inverse())
-    }
 }

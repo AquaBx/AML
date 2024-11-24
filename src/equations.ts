@@ -1,5 +1,4 @@
-import { Complex } from "./complex"
-import { fft, fftInverse, CpxTab } from "./fft"
+import { fft, ifft, CpxTab } from "./fft"
 import { Float } from "./float"
 
 export class Equation {
@@ -35,25 +34,20 @@ export class Equation {
     // } 
 
     public static multiply(x1:Equation,x2:Equation){
-		let n = Math.ceil( Math.max( x1.coefficients.length, x2.coefficients.length ) / 2 ) * 2 ;
+		let n = Math.ceil( ( x1.coefficients.length * x2.coefficients.length ) / 2 ) * 2 ;
 
 		let a = new CpxTab(n)
 		let e = new CpxTab(n)
 
-        for (let i=0;i<n;i++){
-            let a1 = i < x1.coefficients.length ? x1.coefficients[i] : new Float(0)
-            let e1 = i < x2.coefficients.length ? x2.coefficients[i] : new Float(0)
-
-            a.set(i,new Complex( a1 ))
-            e.set(i,new Complex( e1 ))
-        }
+        a.load(x1.coefficients)
+        e.load(x2.coefficients)
 
 		let â = fft(a);
 		let ê = fft(e);
 
 		let ô = CpxTab.multiply(â,ê);
 
-		return fftInverse(ô);
+		return ifft(ô);
     }
 
     // retrieveXFromP1(y:number){

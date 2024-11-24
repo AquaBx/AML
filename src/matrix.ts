@@ -1,6 +1,9 @@
 
 class Size{
     constructor(public lines:number, public columns:number) {}
+    static equals(s1:Size,s2:Size){
+        return s1.lines === s2.lines && s2.columns === s1.columns
+    }
     toString() {
         return `{${this.lines}, ${this.columns}}`;
     }
@@ -40,35 +43,35 @@ export class Matrix{
         this.list[i][j] = value
     }
 
-    public add(m:Matrix){
-        if (this.dimensions() !== m.dimensions()) {
+    public static add(m1:Matrix,m2:Matrix){
+        if (!Size.equals(m1.dimensions(),m2.dimensions())) {
             throw "Matrix must be of same dimensions";
         }
 
-        let return_class = new EmptyMatrix(this.dimensions().lines,this.dimensions().columns)
+        let return_class = new EmptyMatrix(m1.dimensions().lines,m1.dimensions().columns)
 
-        for (let i = 0; i < this.dimensions().lines; i++) {
-            for (let j = 0; j < this.dimensions().columns; j++) {
-                return_class.set(i,j, this.list[i][j] + m.list[i][j] )
+        for (let i = 0; i < m1.dimensions().lines; i++) {
+            for (let j = 0; j < m1.dimensions().columns; j++) {
+                return_class.set(i,j, m1.list[i][j] + m2.list[i][j] )
             }
         }
         return return_class;
     }
 
 
-    public multiply(m:Matrix){
-        if (this.dimensions().columns !== m.dimensions().lines) {
+    public static multiply(m1:Matrix,m2:Matrix){
+        if (m1.dimensions().columns !== m2.dimensions().lines) {
             throw "Matrix must be multiply-able";
         }
 
-        let return_class = new EmptyMatrix(this.dimensions().lines,m.dimensions().columns)
+        let return_class = new EmptyMatrix(m1.dimensions().lines,m2.dimensions().columns)
 
         for (let i = 0; i < return_class.dimensions().lines; i++) {
             for (let j = 0; j < return_class.dimensions().columns; j++) {
                 let value = 0
 
-                for (let k = 0; k < this.dimensions().columns; k++) {
-                    value += this.get(i,k) * m.get(k,j);
+                for (let k = 0; k < m1.dimensions().columns; k++) {
+                    value += m1.get(i,k) * m2.get(k,j);
                 }
 
                 return_class.set(i,j, value)
@@ -192,7 +195,7 @@ export class IdentityMatrix extends Matrix{
     }
 }
 
-export class PolygoneMatrix extends Matrix{
+export class PolynomeMatrix extends Matrix{
     constructor(l : number[], c : number) {
         let list:number[][]=[]
 
