@@ -9,4 +9,5 @@ export default defineConfig({
   clean: true,
   outDir: 'dist',
   entryPoints: ['src/index.ts'],
+  moduleResolution:"nodenext"
 });
