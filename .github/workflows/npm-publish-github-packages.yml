@@ -15,11 +15,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
+          bun-version: latest
           registry-url: https://npm.pkg.github.com/
       - run: bun install
       - run: bun build src/index.ts --outdir dist --minify
-      - name: Publish package
+      - run: npm publis
         env:
-          BUN_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          bun publish --verbose
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
