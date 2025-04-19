@@ -20,4 +20,4 @@ jobs:
       - run: bun build src/index.ts --outdir dist --minify
       - run: bun publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          BUN_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
