@@ -16,7 +16,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           registry-url: https://npm.pkg.github.com/
-      - run: bun ci
+      - run: bun install
       - run: bun build src/index.ts --outdir dist --minify
       - run: bun publish
         env:

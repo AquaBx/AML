@@ -7,17 +7,16 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "tsup",
     "build": "tsup"
   },
   "author": "",
   "license": "MIT",
   "description": "",
   "dependencies": {
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.2"
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "terser": "^5.36.0"
+    "terser": "^5.39.0"
   }
 }
