@@ -19,6 +19,6 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - run: bun install
       - run: bun build src/index.ts --outdir dist --minify
-      - run: npm publis
+      - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
