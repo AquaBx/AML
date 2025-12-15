@@ -1,8 +1,16 @@
-import {expect, test} from 'vitest'
-import {E, Float, PI} from './float'
+import { expect, test } from 'vitest'
+import { E, Float, PI } from './float'
 
 test('6/2 = 3', () => {
     expect((new Float(6, 2)).toNumber()).toBe(3)
+})
+
+test('1/0 = Error', () => {
+    expect(() => (new Float(1, 0))).toThrowError("Division by 0")
+})
+
+test('2/1^10 = 1024/1', () => {
+    expect(Float.pow(new Float(2, 1),10).toNumber()).toBe(1024)
 })
 
 test('3/-2 = -3/2', () => {

@@ -1,5 +1,6 @@
-import {Float} from "./float"
-import {Matrix} from "./matrix"
+import { CpxTab, fft, ifft } from "./fft"
+import { Float } from "./float"
+import { Matrix } from "./matrix"
 
 export class Equation {
     constructor(protected coefficients: Matrix) {
@@ -44,24 +45,24 @@ export class Equation {
 
     //     return [x1,x2]
     // } 
-    /*
-        public static multiply(x1:Equation,x2:Equation){
-            let n = Math.ceil( ( x1.coefficients.length * x2.coefficients.length ) / 2 ) * 2 ;
 
-            let a = new CpxTab(n)
-            let e = new CpxTab(n)
+    public static multiply(x1: Equation, x2: Equation) {
+        let n = Math.ceil((x1.coefficients.dimensions().columns * x2.coefficients.dimensions().columns) / 2) * 2;
 
-            a.load(x1.coefficients)
-            e.load(x2.coefficients)
+        let a = new CpxTab(n)
+        let e = new CpxTab(n)
 
-            let â = fft(a);
-            let ê = fft(e);
+        a.load(x1.coefficients.extractLine(0))
+        e.load(x2.coefficients.extractLine(0))
 
-            let ô = CpxTab.multiply(â,ê);
+        let â = fft(a);
+        let ê = fft(e);
 
-            return ifft(ô);
-        }
-    */
+        let ô = CpxTab.multiply(â, ê);
+
+        return ifft(ô);
+    }
+
     // retrieveXFromP1(y:number){
     //     return (y - this.coefficients[0]) / this.coefficients[1]
     // } 

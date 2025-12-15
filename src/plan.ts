@@ -1,6 +1,6 @@
-import {Equation} from "./equations"
-import {Float} from "./float"
-import {EmptyMatrix, IdentityMatrix, Matrix} from "./matrix"
+import { Equation } from "./equations"
+import { Float } from "./float"
+import { EmptyMatrix, IdentityMatrix, Matrix } from "./matrix"
 
 class Dimensional {
     constructor(private dim: number) {
@@ -68,10 +68,8 @@ export class Vector extends Dimensional {
 
 export class HyperPlan extends Dimensional {
     constructor(private points: Point[]) {
-        for (let p of points) {
-            if (p.dimension !== points.length) {
-                throw new Error("Point dimension needs to match the hyperplan dimension")
-            }
+        if (points[0].dimension !== points.length) {
+            throw new Error("Point dimension needs to match the hyperplan dimension")
         }
         super(points.length)
     }
@@ -81,7 +79,6 @@ export class HyperPlan extends Dimensional {
         let m = new EmptyMatrix(dim, dim)
         let identity = new IdentityMatrix(dim, dim)
         let i, j
-
         for (i = 0; i < dim - 2; i++) {
             let v = new Vector(this.points[dim - 2], this.points[i])
 
@@ -92,7 +89,6 @@ export class HyperPlan extends Dimensional {
         }
         m.set(i, j - 1, new Float(1))
         m.set(i, j, new Float(1))
-
 
         let m2 = m.simplify()
 

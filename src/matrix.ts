@@ -40,8 +40,8 @@ export class Matrix {
 
     public static substract(m1: Matrix, m2: Matrix) {
         let m3 = m2.clone()
-        m3.operate_by((i) => {
-            return -i
+        m3.operate_by((n:Float) => {
+            return n.opposite()
         })
         return Matrix.add(m1, m3);
     }
@@ -146,7 +146,7 @@ export class Matrix {
             throw `Out of bounds ${i} ${this.dimensions().toString()}`;
         }
 
-        return [...this.get_matrix[i]]
+        return [...this.get_matrix()[i]]
     }
 
     public extractColumns(j: number) {
