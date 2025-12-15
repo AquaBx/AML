@@ -1,22 +1,30 @@
 {
-  "name": "aml",
-  "version": "1.0.0-alpha.2",
-  "main": "dist/index.cjs",
+  "name": "@aquabx/aml",
+  "version": "1.0.0-alpha.3",
+  "description": "",
+  "homepage": "https://github.com/AquaBx/AML#readme",
+  "bugs": {
+    "url": "https://github.com/AquaBx/AML/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AquaBx/AML.git"
+  },
+  "license": "MIT",
+  "author": "",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsup"
-  },
-  "author": "",
-  "license": "MIT",
-  "description": "",
-  "dependencies": {
-    "tsup": "^8.4.0",
-    "typescript": "^5.8.3"
+    "build": "rolldown -c rolldown.config.ts",
+    "test": "vitest",
+    "mutate:test": "stryker run"
   },
   "devDependencies": {
-    "terser": "^5.39.0"
+    "typescript": "^5.9.3",
+    "@stryker-mutator/vitest-runner": "^9.4.0",
+    "vitest": "^4.0.15",
+    "rolldown-plugin-dts": "^0.18.3",
+    "rolldown": "^1.0.0-beta.54"
   }
 }
